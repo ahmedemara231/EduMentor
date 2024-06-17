@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "390420502621",
+    "project_id": "fcis-guide",
+    "storage_bucket": "fcis-guide.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:390420502621:android:23d4902e8e5739151695b4",
+        "android_client_info": {
+          "package_name": "com.example.fcis_guide"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDpnplYFklr-aRwvtfRj-SFNjV-jldzZPM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
