@@ -1,0 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:multiple_result/multiple_result.dart';
+import '../errors.dart';
+
+abstract class FireStoreService
+{
+  Future<Result<CollectionReference,FirebaseError>> callFireStore();
+}
