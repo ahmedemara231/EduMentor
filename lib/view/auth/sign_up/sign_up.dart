@@ -1,3 +1,4 @@
+import 'package:fcis_guide/constants/constants.dart';
 import 'package:fcis_guide/extensions/routes.dart';
 import 'package:fcis_guide/model/remote/firebase_service/auth_service/auth_services_implementation.dart';
 import 'package:fcis_guide/view/auth/login/login.dart';
@@ -53,7 +54,7 @@ class _SignUpState extends State<SignUp> {
       BlocBuilder<AuthCubit,AuthStates>(
         builder: (context, state) => AuthTFF(
           text: 'password',
-          cont: passCont,
+          cont: confirmPassCont,
           invisiblePass: AuthCubit.getInstance(context).invisiblePass[2],
           suffixIcon: IconButton(
             onPressed: () {
@@ -78,18 +79,22 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Constants.appColor,
+      ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
-        child: Column(
+        child: ListView(
           children: [
-            const Spacer(),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 25.h),
-              child: MyText(
-                text: 'Create an account',
-                fontSize: 30.sp,
-                fontWeight: FontWeight.bold,
-                color: Colors.white,
+              child: Center(
+                child: MyText(
+                  text: 'Create an account',
+                  fontSize: 30.sp,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.white,
+                ),
               ),
             ),
             Form(
@@ -101,22 +106,26 @@ class _SignUpState extends State<SignUp> {
             ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 40.h),
-              child: AppButton(
-                onPressed: () {
-                  if(formKey.currentState!.validate())
-                  {
-                    AuthCubit.getInstance(context).auth(
-                        context,
-                        authService: FirebaseRegisterCall(),
-                        email: emailCont.text,
-                        password: passCont.text
-                    );
-                  }
-                } ,
-                text: 'Sign up',
+              child: BlocBuilder<AuthCubit,AuthStates>(
+                builder: (context, state) =>
+                state is AuthLoading?
+                const CircularProgressIndicator():
+                AppButton(
+                  onPressed: () {
+                    if(formKey.currentState!.validate())
+                    {
+                      AuthCubit.getInstance(context).auth(
+                          context,
+                          authService: FirebaseRegisterCall(),
+                          email: emailCont.text,
+                          password: passCont.text
+                      );
+                    }
+                  } ,
+                  text: 'Sign up',
+                ),
               ),
             ),
-            const Spacer(),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -129,6 +138,7 @@ class _SignUpState extends State<SignUp> {
                   onPressed: () => context.removeOldRoute(Login()),
                   child: MyText(
                     text: 'Login',
+                    textDecoration: TextDecoration.underline,
                     color: Colors.black,
                     fontWeight: FontWeight.bold,
                     fontSize: 14.sp,

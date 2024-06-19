@@ -19,98 +19,102 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<AuthCubit,AuthStates>(
-      builder: (context, state) => Scaffold(
-        body: Form(
-          key: formKey,
-          child: Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16.w),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Spacer(),
-                Padding(
-                  padding: EdgeInsets.symmetric(vertical: 25.h),
-                  child: MyText(
-                    text: 'Login',
-                    fontSize: 40.sp,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.white,
-                  ),
+    return Scaffold(
+      body: Form(
+        key: formKey,
+        child: Padding(
+          padding: EdgeInsets.symmetric(horizontal: 16.w),
+          child: Column(
+            mainAxisSize: MainAxisSize.max,
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              const Spacer(),
+              Padding(
+                padding: EdgeInsets.symmetric(vertical: 25.h),
+                child: MyText(
+                  text: 'Login',
+                  fontSize: 40.sp,
+                  fontWeight: FontWeight.w500,
+                  color: Colors.white,
                 ),
-                AuthTFF(
-                  text: 'email',
-                  cont: emailCont,
+              ),
+              AuthTFF(
+                text: 'email',
+                cont: emailCont,
+              ),
+              AuthTFF(
+                text: 'password',
+                cont: passCont,
+                invisiblePass: AuthCubit.getInstance(context).invisiblePass[0],
+                suffixIcon: IconButton(
+                  onPressed: () {
+                    AuthCubit.getInstance(context).changePassVisibility(0);
+                  },
+                  icon: AuthCubit.getInstance(context).invisiblePass[0]?
+                  const Icon(Icons.visibility_off) :
+                  const Icon(Icons.visibility),
                 ),
-                AuthTFF(
-                  text: 'password',
-                  cont: passCont,
-                  invisiblePass: AuthCubit.getInstance(context).invisiblePass[0],
-                  suffixIcon: IconButton(
-                    onPressed: () {
-                      AuthCubit.getInstance(context).changePassVisibility(0);
-                    },
-                    icon: AuthCubit.getInstance(context).invisiblePass[0]?
-                    const Icon(Icons.visibility_off) :
-                    const Icon(Icons.visibility),
-                  ),
-                ),
+              ),
 
-                Padding(
-                  padding: EdgeInsets.only(top: 5.h,bottom: 12.h),
-                  child: Row(
-                    children: [
-                      Checkbox(
-                        value: false,
-                        onChanged: (value) {},
-                      ),
-                      MyText(text: 'Remember Me'),
-                      const Spacer(),
-                      TextButton(
-                        onPressed: () {},
-                        child: MyText(text: 'Forgot Password?',color: Colors.black),
-                      )
-                    ],
-                  ),
+              Padding(
+                padding: EdgeInsets.only(top: 5.h,bottom: 12.h),
+                child: Row(
+                  children: [
+                    Checkbox(
+                      value: false,
+                      onChanged: (value) {},
+                    ),
+                    MyText(text: 'Remember Me'),
+                    const Spacer(),
+                    TextButton(
+                      onPressed: () {},
+                      child: MyText(text: 'Forgot Password?',color: Colors.black),
+                    )
+                  ],
                 ),
+              ),
 
+              BlocBuilder<AuthCubit,AuthStates>(
+                builder: (context, state) =>
+                state is AuthLoading?
+                const CircularProgressIndicator():
                 AppButton(
                   onPressed: () {
                     if(formKey.currentState!.validate())
-                      {
-                        AuthCubit.getInstance(context).auth(
-                            context,
-                            authService: FirebaseLoginCall(),
-                            email: emailCont.text,
-                            password: passCont.text
-                        );
-                      }
+                    {
+                      AuthCubit.getInstance(context).auth(
+                          context,
+                          authService: FirebaseLoginCall(),
+                          email: emailCont.text,
+                          password: passCont.text
+                      );
+                    }
                   } ,
                   text: 'Login',
                 ),
-                const Spacer(),
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    MyText(
-                      text: 'Already have an account?',
+              ),
+              const Spacer(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  MyText(
+                    text: 'Already have an account?',
+                    color: Colors.black,
+                    fontSize: 14.sp,
+                  ),
+                  TextButton(
+                    onPressed: () => context.normalNewRoute(const SignUp()),
+                    child: MyText(
+                      text: 'Sign up',
+                      textDecoration: TextDecoration.underline,
                       color: Colors.black,
                       fontSize: 14.sp,
+                      fontWeight: FontWeight.bold,
                     ),
-                    TextButton(
-                      onPressed: () => context.normalNewRoute(const SignUp()),
-                      child: MyText(
-                        text: 'Sign up',
-                        color: Colors.black,
-                        fontSize: 14.sp,
-                        fontWeight: FontWeight.bold,
-                      ),
-                    )
-                  ],
-                )
-              ],
-            ),
+                  )
+                ],
+              )
+            ],
           ),
         ),
       ),
