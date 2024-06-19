@@ -1,10 +1,11 @@
 import 'package:fcis_guide/constants/constants.dart';
-import 'package:fcis_guide/extensions/routes.dart';
 import 'package:fcis_guide/modules/base_widgets/myText.dart';
-import 'package:fcis_guide/view/home/home.dart';
-import 'package:fcis_guide/view/year_selection/sheet_item_builder.dart';
+import 'package:fcis_guide/modules/app_widgets/sheet_item_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../modules/app_widgets/handling_item_click/implementation.dart';
+import '../../modules/data_types/getDeptData.dart';
 
 class YearSelection extends StatelessWidget {
   YearSelection({super.key});
@@ -19,14 +20,44 @@ class YearSelection extends StatelessWidget {
     'Fourth',
   ];
 
-  Future<void> showSheet(context)async
+  Future<void> showSheetForThirdAndFourth(context,{
+    required DeptDataRequest request
+  })async
   {
-    // scaffoldKey.currentState!.showBottomSheet(
-    //   (context) => Container(),
-    // );
     showModalBottomSheet(
       context: context,
-      builder: (context) => SheetItemBuilder()
+      builder: (context) => SheetItemBuilder(
+        handleTabClick: HandleDeptClick(),
+        request: request,
+        choosingList:
+        const [
+        'CS',
+        'IT',
+        'IS',
+        'SWE',
+        'BIO',
+        'AI',
+        ],
+      )
+    );
+  }
+
+  Future<void> showSheetForFirstAndSecond(context,{
+    required DeptDataRequest request
+  })async
+  {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) => SheetItemBuilder(
+          handleTabClick: HandleDeptClick(),
+          request: request,
+          choosingList: const [
+            'SWE',
+            'BIO',
+            'AI',
+            'General'
+          ],
+        )
     );
   }
 
@@ -60,10 +91,22 @@ class YearSelection extends StatelessWidget {
               {
                 case 2:
                 case 3:
-                  showSheet(context);
+                  showSheetForThirdAndFourth(
+                    context,
+                    request: DeptDataRequest(
+                      year: '${academicYear[index].toLowerCase()}Year',
+                      yearCode: index + 1,
+                    ),
+                  );
 
                 default:
-                  context.normalNewRoute(Home());
+                  showSheetForFirstAndSecond(
+                    context,
+                    request: DeptDataRequest(
+                      year: '${academicYear[index].toLowerCase()}Year',
+                      yearCode: index + 1,
+                    ),
+                  );
               }
             },
             child: Container(

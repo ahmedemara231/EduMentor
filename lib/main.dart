@@ -5,9 +5,11 @@ import 'package:fcis_guide/view/home/home.dart';
 import 'package:fcis_guide/view/year_selection/year_selection.dart';
 import 'package:fcis_guide/view_model/auth/cubit.dart';
 import 'package:fcis_guide/view_model/bloc_observer.dart';
+import 'package:fcis_guide/view_model/home/cubit.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'firebase_options.dart';
 import 'model/local/secure_storage.dart';
@@ -37,6 +39,9 @@ class MyApp extends StatelessWidget {
         providers: [
           BlocProvider(
             create: (context) => AuthCubit(),
+          ),
+          BlocProvider(
+            create: (context) => HomeCubit(),
           )
         ],
         child: MaterialApp(
@@ -45,6 +50,7 @@ class MyApp extends StatelessWidget {
           ),
           debugShowCheckedModeBanner: false,
           home: YearSelection(),
+          builder: EasyLoading.init(),
         ),
       ),
     );

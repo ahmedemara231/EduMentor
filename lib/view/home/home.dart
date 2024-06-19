@@ -1,7 +1,10 @@
 import 'package:fcis_guide/constants/constants.dart';
 import 'package:fcis_guide/modules/base_widgets/myText.dart';
+import 'package:fcis_guide/view_model/home/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+
+import '../../modules/app_widgets/sheet_item_builder.dart';
 
 class Home extends StatelessWidget {
   Home({super.key});
@@ -15,9 +18,38 @@ class Home extends StatelessWidget {
     'Documents'
   ];
 
+  final scaffoldKey = GlobalKey<ScaffoldState>();
+
+  void showSemesterBottomSheet(context)
+  {
+    showModalBottomSheet(
+        context: context,
+        builder: (context) => Container(
+          child: Column(
+            children: [
+              Container(
+                decoration: Constants.decoration,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: MyText(text: 'First Semester'),
+                ),
+              ),
+              Container(
+                decoration: Constants.decoration,
+                child: Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: MyText(text: 'second Semester'),
+                ),
+              )
+            ],
+          ),
+        ),
+    );
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         centerTitle: true,
         backgroundColor: Constants.appColor,
@@ -40,10 +72,8 @@ class Home extends StatelessWidget {
           itemBuilder: (context, index) => InkWell(
             onTap: ()
             {
-              switch(index)
-              {
-
-              }
+              HomeCubit.getInstance(context).getSemesterData(Constants.firstSemester);
+              // showSemesterBottomSheet(context);
             },
             child: Container(
               decoration: BoxDecoration(

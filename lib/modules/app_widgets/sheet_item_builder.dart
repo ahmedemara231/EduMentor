@@ -1,25 +1,27 @@
 import 'package:fcis_guide/constants/constants.dart';
+import 'package:fcis_guide/extensions/routes.dart';
+import 'package:fcis_guide/model/remote/firebase_service/firestore_service/firestore_services_implementation.dart';
 import 'package:fcis_guide/modules/base_widgets/myText.dart';
+import 'package:fcis_guide/modules/data_types/getDeptData.dart';
+import 'package:fcis_guide/view/home/home.dart';
+import 'package:fcis_guide/view_model/home/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import 'handling_item_click/interface.dart';
+
 class SheetItemBuilder extends StatelessWidget {
-  SheetItemBuilder({super.key});
 
-  final Decoration decoration = BoxDecoration(
-      color: Constants.appColor,
-      borderRadius: BorderRadius.circular(14)
-  );
+  List<String> choosingList;
+  DeptDataRequest request;
+  HandleTabClick handleTabClick;
 
-  List<String> depts =
-  [
-    'CS',
-    'IT',
-    'IS',
-    'SWE',
-    'BIO',
-    'AI',
-  ];
+  SheetItemBuilder({super.key,
+    required this.choosingList,
+    required this.request,
+    required this.handleTabClick,
+  });
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -29,7 +31,7 @@ class SheetItemBuilder extends StatelessWidget {
           Padding(
             padding: EdgeInsets.symmetric(vertical: 16.0.h),
             child: MyText(
-              text: 'Choose your Department',
+              text: 'Choose Department',
               fontSize: 20.sp,
               fontWeight: FontWeight.w500,
               color: Constants.appColor,
@@ -37,20 +39,25 @@ class SheetItemBuilder extends StatelessWidget {
           ),
           Column(
             children: List.generate(
-              depts.length,
+              choosingList.length,
               (index) => Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: InkWell(
-                  onTap: () {},
+                  onTap: () => handleTabClick.onClick(
+                      context,
+                      request: request,
+                      choosingList: choosingList,
+                      index: index
+                  ),
                   child: Container(
-                    decoration: decoration,
+                    decoration: Constants.decoration,
                     child: SizedBox(
                       width: double.infinity,
                       child: Center(
                         child: Padding(
                           padding: const EdgeInsets.all(10.0),
                           child: MyText(
-                            text: depts[index],
+                            text: choosingList[index],
                             fontWeight: FontWeight.bold,
                             fontSize: 16.sp,
                             color: Colors.white,

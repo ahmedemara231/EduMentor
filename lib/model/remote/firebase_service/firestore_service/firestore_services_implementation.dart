@@ -1,8 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:connectivity_plus/connectivity_plus.dart';
-import 'package:fcis_guide/model/remote/firebase_service/auth_service/auth_services.dart';
 import 'package:multiple_result/multiple_result.dart';
-
 import '../errors.dart';
 import 'firestore_services.dart';
 
