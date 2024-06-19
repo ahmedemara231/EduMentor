@@ -1,4 +1,6 @@
+import 'package:fcis_guide/constants/constants.dart';
 import 'package:fcis_guide/view/auth/login/login.dart';
+import 'package:fcis_guide/view_model/auth/cubit.dart';
 import 'package:fcis_guide/view_model/bloc_observer.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -28,9 +30,19 @@ class MyApp extends StatelessWidget {
       designSize: const Size(360, 690),
       minTextAdapt: true,
       splitScreenMode: true,
-      child: MaterialApp(
-        debugShowCheckedModeBanner: false,
-        home: Login(),
+      child: MultiBlocProvider(
+        providers: [
+          BlocProvider(
+            create: (context) => AuthCubit(),
+          )
+        ],
+        child: MaterialApp(
+          theme: ThemeData(
+            scaffoldBackgroundColor: Constants.appColor,
+          ),
+          debugShowCheckedModeBanner: false,
+          home: Login(),
+        ),
       ),
     );
   }

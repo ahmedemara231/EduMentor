@@ -1,6 +1,9 @@
+import 'package:fcis_guide/extensions/routes.dart';
 import 'package:fcis_guide/model/remote/firebase_service/auth_service/auth_services_implementation.dart';
+import 'package:fcis_guide/modules/app_widgets/Auth_TFF.dart';
+import 'package:fcis_guide/modules/app_widgets/app_button.dart';
 import 'package:fcis_guide/modules/base_widgets/myText.dart';
-import 'package:fcis_guide/modules/base_widgets/textFormField.dart';
+import 'package:fcis_guide/view/auth/sign_up/sign_up.dart';
 import 'package:fcis_guide/view_model/auth/cubit.dart';
 import 'package:fcis_guide/view_model/auth/states.dart';
 import 'package:flutter/material.dart';
@@ -16,32 +19,63 @@ class Login extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => AuthCubit(),
-      child: BlocBuilder<AuthCubit,AuthStates>(
-        builder: (context, state) => Scaffold(
-          body: Form(
-            key: formKey,
-            child: ListView(
+    return BlocBuilder<AuthCubit,AuthStates>(
+      builder: (context, state) => Scaffold(
+        body: Form(
+          key: formKey,
+          child: Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16.w),
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                TFF(
-                  obscureText: false,
-                  controller: emailCont,
-                  border: OutlineInputBorder(
-                    borderRadius: BorderRadius.circular(20)
-                  ),
-                ),
+                const Spacer(),
                 Padding(
-                  padding: EdgeInsets.symmetric(vertical: 8.h),
-                  child: TFF(
-                    obscureText: false,
-                    controller: passCont,
-                    border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20)
-                    ),
+                  padding: EdgeInsets.symmetric(vertical: 25.h),
+                  child: MyText(
+                    text: 'Login',
+                    fontSize: 40.sp,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
                   ),
                 ),
-                ElevatedButton(
+                AuthTFF(
+                  text: 'email',
+                  cont: emailCont,
+                ),
+                AuthTFF(
+                  text: 'password',
+                  cont: passCont,
+                  invisiblePass: AuthCubit.getInstance(context).invisiblePass[0],
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      AuthCubit.getInstance(context).changePassVisibility(0);
+                    },
+                    icon: AuthCubit.getInstance(context).invisiblePass[0]?
+                    const Icon(Icons.visibility_off) :
+                    const Icon(Icons.visibility),
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsets.only(top: 5.h,bottom: 12.h),
+                  child: Row(
+                    children: [
+                      Checkbox(
+                        value: false,
+                        onChanged: (value) {},
+                      ),
+                      MyText(text: 'Remember Me'),
+                      const Spacer(),
+                      TextButton(
+                        onPressed: () {},
+                        child: MyText(text: 'Forgot Password?',color: Colors.black),
+                      )
+                    ],
+                  ),
+                ),
+
+                AppButton(
                   onPressed: () {
                     if(formKey.currentState!.validate())
                       {
@@ -52,8 +86,28 @@ class Login extends StatelessWidget {
                             password: passCont.text
                         );
                       }
-                  },
-                  child: MyText(text: 'Login'),
+                  } ,
+                  text: 'Login',
+                ),
+                const Spacer(),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    MyText(
+                      text: 'Already have an account?',
+                      color: Colors.black,
+                      fontSize: 14.sp,
+                    ),
+                    TextButton(
+                      onPressed: () => context.normalNewRoute(const SignUp()),
+                      child: MyText(
+                        text: 'Sign up',
+                        color: Colors.black,
+                        fontSize: 14.sp,
+                        fontWeight: FontWeight.bold,
+                      ),
+                    )
+                  ],
                 )
               ],
             ),

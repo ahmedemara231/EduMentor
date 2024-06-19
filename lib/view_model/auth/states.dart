@@ -1,5 +1,7 @@
 class AuthStates {}
 
+class ChangePassVisibility extends AuthStates {}
+
 class AuthInitial extends AuthStates {}
 
 class AuthLoading extends AuthStates {}

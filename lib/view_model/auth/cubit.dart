@@ -13,6 +13,16 @@ class AuthCubit extends Cubit<AuthStates>
 
   factory AuthCubit.getInstance(context) => BlocProvider.of(context);
 
+  List<bool> invisiblePass = [true,true,true];
+  void changePassVisibility(int index)
+  {
+    invisiblePass[index] = !invisiblePass[index];
+    emit(ChangePassVisibility());
+  }
+
+
+
+
   Future<void> auth(context,{
     required FirebaseAuthService authService,
     required String email,
@@ -35,6 +45,8 @@ class AuthCubit extends Cubit<AuthStates>
       emit(AuthError(result.tryGetError()?.message));
     }
   }
+
+  Future<void> handleLoginSuccess()async{}
 
   Future<void> logout()async
   {
