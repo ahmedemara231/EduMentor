@@ -1,7 +1,7 @@
-import 'package:fcis_guide/constants/constants.dart';
 import 'package:fcis_guide/extensions/routes.dart';
 import 'package:fcis_guide/model/remote/firebase_service/auth_service/auth_services_implementation.dart';
 import 'package:fcis_guide/view/auth/login/login.dart';
+import 'package:fcis_guide/view_model/auth/handle_success/implementation.dart';
 import 'package:fcis_guide/view_model/auth/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -79,8 +79,9 @@ class _SignUpState extends State<SignUp> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
       appBar: AppBar(
-        backgroundColor: Constants.appColor,
+        backgroundColor: Colors.transparent,
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 16.w),
@@ -105,7 +106,7 @@ class _SignUpState extends State<SignUp> {
               ),
             ),
             Padding(
-              padding: EdgeInsets.symmetric(vertical: 40.h),
+              padding: EdgeInsets.only(top: 40.h,bottom: 130.h),
               child: BlocBuilder<AuthCubit,AuthStates>(
                 builder: (context, state) =>
                 state is AuthLoading?
@@ -117,6 +118,7 @@ class _SignUpState extends State<SignUp> {
                       AuthCubit.getInstance(context).auth(
                           context,
                           authService: FirebaseRegisterCall(),
+                          handleSuccess: HandleSignUpSuccess(),
                           email: emailCont.text,
                           password: passCont.text
                       );

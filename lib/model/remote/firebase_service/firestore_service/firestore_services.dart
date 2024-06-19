@@ -4,5 +4,5 @@ import '../errors.dart';
 
 abstract class FireStoreService
 {
-  Future<Result<CollectionReference,FirebaseError>> callFireStore();
+  Future<Result<CollectionReference,FirebaseError>> callFireStore(String collectionName);
 }

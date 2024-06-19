@@ -5,37 +5,55 @@ import 'package:fcis_guide/modules/app_widgets/app_button.dart';
 import 'package:fcis_guide/modules/base_widgets/myText.dart';
 import 'package:fcis_guide/view/auth/sign_up/sign_up.dart';
 import 'package:fcis_guide/view_model/auth/cubit.dart';
+import 'package:fcis_guide/view_model/auth/handle_success/implementation.dart';
 import 'package:fcis_guide/view_model/auth/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class Login extends StatelessWidget {
+class Login extends StatefulWidget {
   Login({super.key});
 
+  @override
+  State<Login> createState() => _LoginState();
+}
+
+class _LoginState extends State<Login> {
   final emailCont = TextEditingController();
+
   final passCont = TextEditingController();
+
   final formKey = GlobalKey<FormState>();
 
   @override
+  void dispose() {
+    emailCont.dispose();
+    passCont.dispose();
+    super.dispose();
+  }
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
+      extendBodyBehindAppBar: true,
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+      ),
       body: Form(
         key: formKey,
         child: Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            mainAxisAlignment: MainAxisAlignment.center,
+          child: ListView(
             children: [
-              const Spacer(),
+
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 25.h),
-                child: MyText(
-                  text: 'Login',
-                  fontSize: 40.sp,
-                  fontWeight: FontWeight.w500,
-                  color: Colors.white,
+                child: Center(
+                  child: MyText(
+                    text: 'Login',
+                    fontSize: 40.sp,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.white,
+                  ),
                 ),
               ),
               AuthTFF(
@@ -78,22 +96,26 @@ class Login extends StatelessWidget {
                 builder: (context, state) =>
                 state is AuthLoading?
                 const CircularProgressIndicator():
-                AppButton(
-                  onPressed: () {
-                    if(formKey.currentState!.validate())
-                    {
-                      AuthCubit.getInstance(context).auth(
-                          context,
-                          authService: FirebaseLoginCall(),
-                          email: emailCont.text,
-                          password: passCont.text
-                      );
-                    }
-                  } ,
-                  text: 'Login',
+                Padding(
+                  padding: EdgeInsets.only(bottom: 190.h),
+                  child: AppButton(
+                    onPressed: () {
+                      if(formKey.currentState!.validate())
+                      {
+                        AuthCubit.getInstance(context).auth(
+                            context,
+                            authService: FirebaseLoginCall(),
+                            handleSuccess: HandleLoginSuccess(),
+                            email: emailCont.text,
+                            password: passCont.text
+                        );
+                      }
+                    } ,
+                    text: 'Login',
+                  ),
                 ),
               ),
-              const Spacer(),
+
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
