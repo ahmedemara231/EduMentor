@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fcis_guide/model/remote/firebase_service/firestore_service/firestore_services.dart';
+import 'package:fcis_guide/modules/data_types/academic_year_info.dart';
 import 'package:fcis_guide/modules/data_types/getDeptData.dart';
 import 'package:fcis_guide/view_model/home/states.dart';
 import 'package:flutter/cupertino.dart';
@@ -13,8 +14,9 @@ class HomeCubit extends Cubit<HomeStates> {
 
   DeptDataRequest? request;
 
-
   late DocumentReference documentReference;
+  late AcademicYearInfo academicYearInfo;
+
   Future<void> getAcademicYearData(BuildContext context,{
     required FireStoreService service,
     required String academicYear,
@@ -30,6 +32,11 @@ class HomeCubit extends Cubit<HomeStates> {
     {
       if(value.isSuccess())
         {
+          value.getOrThrow().get().then((value) {
+            academicYearInfo = AcademicYearInfo.fromJson(value.docs[0].data() as Map<String, dynamic>);
+          });
+
+
           documentReference = await handleGetDataSuccess(
             collection: value.getOrThrow(),
           );
@@ -59,10 +66,12 @@ class HomeCubit extends Cubit<HomeStates> {
 
   Future<void> getSemesterData(String semester)async
   {
+    emit(GetSemesterDataLoading());
     var result = await documentReference.collection(semester).get();
     result.docs.forEach((element) {
       print(element.data());
     });
+    emit(GetSemesterDataLoading());
   }
 
 

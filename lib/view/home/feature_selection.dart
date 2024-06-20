@@ -32,39 +32,6 @@ class Home extends StatelessWidget {
             handleTabClick: HandleSemesterClick()
         )
     );
-    
-    // showModalBottomSheet(
-    //     context: context,
-    //     builder: (context) => Column(
-    //       mainAxisAlignment: MainAxisAlignment.center,
-    //       children: List.generate(semesters.length, (index) => Padding(
-    //           padding: const EdgeInsets.all(8.0),
-    //           child: InkWell(
-    //             onTap: () {
-    //               HomeCubit.getInstance(context).getSemesterData(semesters[index]);
-    //               Navigator.pop(context);
-    //             },
-    //             child: Container(
-    //             height: 150.h,
-    //             decoration: Constants.decoration,
-    //             child: SizedBox(
-    //               width: double.infinity,
-    //               child: Center(
-    //                 child: Padding(
-    //                   padding: const EdgeInsets.all(10.0),
-    //                   child: MyText(
-    //                     text: semesters[index],
-    //                     fontWeight: FontWeight.bold,
-    //                     fontSize: 16.sp,
-    //                     color: Colors.white,
-    //                   ),
-    //                 ),
-    //               ),),
-    //             ),
-    //           ),
-    //         ),),
-    //     ),
-    // );
   }
 
   @override
@@ -73,7 +40,6 @@ class Home extends StatelessWidget {
       key: scaffoldKey,
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Constants.appColor,
         title: MyText(
           text: 'Features',
           fontSize: 30.sp,

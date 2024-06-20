@@ -66,7 +66,6 @@ class YearSelection extends StatelessWidget {
       key: scaffoldKey,
       appBar: AppBar(
         centerTitle: true,
-        backgroundColor: Constants.appColor,
         title: MyText(
           text: 'Academic year',
           fontSize: 30.sp,
@@ -76,54 +75,74 @@ class YearSelection extends StatelessWidget {
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 14.w,vertical: 25.h),
-        child: GridView.builder(
-          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2,
-              crossAxisSpacing: 15.w,
-              mainAxisSpacing: 30.h,
-              childAspectRatio: 1.2
-          ),
-          itemBuilder: (context, index) => InkWell(
-            onTap: ()
-            {
-              switch(index)
-              {
-                case 2:
-                case 3:
-                  showSheetForThirdAndFourth(
-                    context,
-                    request: DeptDataRequest(
-                      year: '${academicYear[index].toLowerCase()}Year',
-                      yearCode: index + 1,
-                    ),
-                  );
-
-                default:
-                  showSheetForFirstAndSecond(
-                    context,
-                    request: DeptDataRequest(
-                      year: '${academicYear[index].toLowerCase()}Year',
-                      yearCode: index + 1,
-                    ),
-                  );
-              }
-            },
-            child: Container(
-              decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20)
-              ),
-              child: Center(
-                child: MyText(
-                  text: academicYear[index],
-                  color: Constants.appColor,
-                  fontWeight: FontWeight.bold,
-                  fontSize: 25.sp,
+        child: Column(
+          children: [
+            Expanded(
+              child: GridView.builder(
+                gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: 2,
+                    crossAxisSpacing: 15.w,
+                    mainAxisSpacing: 30.h,
+                    childAspectRatio: 1.2
                 ),
+                itemBuilder: (context, index) => InkWell(
+                  onTap: ()
+                  {
+                    switch(index)
+                    {
+                      case 2:
+                      case 3:
+                        showSheetForThirdAndFourth(
+                          context,
+                          request: DeptDataRequest(
+                            year: '${academicYear[index].toLowerCase()}Year',
+                            yearCode: index + 1,
+                          ),
+                        );
+
+                      default:
+                        showSheetForFirstAndSecond(
+                          context,
+                          request: DeptDataRequest(
+                            year: '${academicYear[index].toLowerCase()}Year',
+                            yearCode: index + 1,
+                          ),
+                        );
+                    }
+                  },
+                  child: Container(
+                    decoration: BoxDecoration(
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(20)
+                    ),
+                    child: Center(
+                      child: MyText(
+                        text: academicYear[index],
+                        color: Constants.appColor,
+                        fontWeight: FontWeight.bold,
+                        fontSize: 25.sp,
+                      ),
+                    ),
+                  ),
+                ),
+                itemCount: academicYear.length,
               ),
             ),
-          ),
-          itemCount: academicYear.length,
+            Container(
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(5),
+                color: Colors.white
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.warning_amber_sharp,color: Colors.black,),
+                  SizedBox(width: 5.w),
+                  MyText(text: 'To pass 4 years , you must complete 200 hours',fontWeight: FontWeight.w500,),
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );

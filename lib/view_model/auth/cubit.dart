@@ -2,7 +2,7 @@ import 'package:fcis_guide/extensions/routes.dart';
 import 'package:fcis_guide/model/remote/firebase_service/errors.dart';
 import 'package:fcis_guide/model/remote/firebase_service/auth_service/auth_services.dart';
 import 'package:fcis_guide/modules/base_widgets/toast.dart';
-import 'package:fcis_guide/view/home/home.dart';
+import 'package:fcis_guide/view/home/feature_selection.dart';
 import 'package:fcis_guide/view_model/auth/handle_success/interface.dart';
 import 'package:fcis_guide/view_model/auth/states.dart';
 import 'package:firebase_auth/firebase_auth.dart';
