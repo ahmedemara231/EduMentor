@@ -3,7 +3,6 @@ import 'package:fcis_guide/modules/base_widgets/myText.dart';
 import 'package:fcis_guide/modules/app_widgets/sheet_item_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../modules/app_widgets/handling_item_click/implementation.dart';
 import '../../modules/data_types/getDeptData.dart';
 

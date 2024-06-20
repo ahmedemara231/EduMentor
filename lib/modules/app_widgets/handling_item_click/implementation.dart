@@ -34,3 +34,19 @@ class HandleDeptClick extends HandleTabClick
     });
   }
 }
+
+class HandleSemesterClick extends HandleTabClick
+{
+  @override
+  Future<void> onClick(BuildContext context, {
+    required DeptDataRequest request,
+    required List<String> choosingList,
+    required int index
+  })async
+  {
+    await HomeCubit.getInstance(context).getSemesterData(choosingList[index]).then((value) {
+      Navigator.pop(context);
+    });
+  }
+
+}

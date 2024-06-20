@@ -1,10 +1,6 @@
 import 'package:fcis_guide/constants/constants.dart';
-import 'package:fcis_guide/extensions/routes.dart';
-import 'package:fcis_guide/model/remote/firebase_service/firestore_service/firestore_services_implementation.dart';
 import 'package:fcis_guide/modules/base_widgets/myText.dart';
 import 'package:fcis_guide/modules/data_types/getDeptData.dart';
-import 'package:fcis_guide/view/home/home.dart';
-import 'package:fcis_guide/view_model/home/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 

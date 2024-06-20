@@ -1,10 +1,10 @@
 import 'package:fcis_guide/constants/constants.dart';
+import 'package:fcis_guide/modules/app_widgets/handling_item_click/implementation.dart';
+import 'package:fcis_guide/modules/app_widgets/sheet_item_builder.dart';
 import 'package:fcis_guide/modules/base_widgets/myText.dart';
-import 'package:fcis_guide/view_model/home/cubit.dart';
+import 'package:fcis_guide/modules/data_types/getDeptData.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
-import '../../modules/app_widgets/sheet_item_builder.dart';
 
 class Home extends StatelessWidget {
   Home({super.key});
@@ -20,32 +20,53 @@ class Home extends StatelessWidget {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  final List<String> semesters = [Constants.firstSemester,Constants.secondSemester];
+
   void showSemesterBottomSheet(context)
   {
     showModalBottomSheet(
         context: context,
-        builder: (context) => Container(
-          child: Column(
-            children: [
-              Container(
-                decoration: Constants.decoration,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: MyText(text: 'First Semester'),
-                ),
-              ),
-              Container(
-                decoration: Constants.decoration,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: MyText(text: 'second Semester'),
-                ),
-              )
-            ],
-          ),
-        ),
+        builder: (context) => SheetItemBuilder(
+            choosingList: semesters,
+            request: DeptDataRequest(),
+            handleTabClick: HandleSemesterClick()
+        )
     );
+    
+    // showModalBottomSheet(
+    //     context: context,
+    //     builder: (context) => Column(
+    //       mainAxisAlignment: MainAxisAlignment.center,
+    //       children: List.generate(semesters.length, (index) => Padding(
+    //           padding: const EdgeInsets.all(8.0),
+    //           child: InkWell(
+    //             onTap: () {
+    //               HomeCubit.getInstance(context).getSemesterData(semesters[index]);
+    //               Navigator.pop(context);
+    //             },
+    //             child: Container(
+    //             height: 150.h,
+    //             decoration: Constants.decoration,
+    //             child: SizedBox(
+    //               width: double.infinity,
+    //               child: Center(
+    //                 child: Padding(
+    //                   padding: const EdgeInsets.all(10.0),
+    //                   child: MyText(
+    //                     text: semesters[index],
+    //                     fontWeight: FontWeight.bold,
+    //                     fontSize: 16.sp,
+    //                     color: Colors.white,
+    //                   ),
+    //                 ),
+    //               ),),
+    //             ),
+    //           ),
+    //         ),),
+    //     ),
+    // );
   }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -72,8 +93,7 @@ class Home extends StatelessWidget {
           itemBuilder: (context, index) => InkWell(
             onTap: ()
             {
-              HomeCubit.getInstance(context).getSemesterData(Constants.firstSemester);
-              // showSemesterBottomSheet(context);
+              showSemesterBottomSheet(context);
             },
             child: Container(
               decoration: BoxDecoration(
