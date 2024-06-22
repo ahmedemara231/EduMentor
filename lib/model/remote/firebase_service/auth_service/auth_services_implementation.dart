@@ -1,7 +1,13 @@
 import 'package:connectivity_plus/connectivity_plus.dart';
+import 'package:fcis_guide/extensions/routes.dart';
+import 'package:fcis_guide/model/local/shared_prefs.dart';
 import 'package:fcis_guide/model/remote/firebase_service/errors.dart';
 import 'package:fcis_guide/model/remote/firebase_service/auth_service/auth_services.dart';
+import 'package:fcis_guide/modules/base_widgets/toast.dart';
+import 'package:fcis_guide/view/auth/login/login.dart';
+import 'package:fcis_guide/view/year_selection/year_selection.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
 import 'package:multiple_result/src/result.dart';
 
 class FirebaseRegisterCall extends FirebaseAuthService
@@ -36,6 +42,16 @@ class FirebaseRegisterCall extends FirebaseAuthService
     }
   }
 
+  @override
+  void handleSuccess(BuildContext context) {
+    context.removeOldRoute(Login());
+  }
+
+  @override
+  void handleError(context, String? errorMessage) {
+    MyToast.showToast(context, msg: errorMessage!,color: Colors.red);
+  }
+
 }
 
 class FirebaseLoginCall extends FirebaseAuthService
@@ -60,6 +76,8 @@ class FirebaseLoginCall extends FirebaseAuthService
               password: password
           );
 
+          cacheData(userCredential);
+
           return Result.success(userCredential);
 
         } on FirebaseAuthException catch (e) {
@@ -68,6 +86,28 @@ class FirebaseLoginCall extends FirebaseAuthService
       default:
         return Result.error(NetworkException('Please Check your connection and try again'));
     }
+  }
+
+  void cacheData(UserCredential userCredential)async
+  {
+    await CacheHelper.getInstance().setData(
+      key: 'userData',
+      value:
+      [
+        '${userCredential.user?.uid}',
+        '${userCredential.user?.email!}',
+      ],
+    );
+  }
+
+  @override
+  void handleSuccess(BuildContext context) {
+    context.removeOldRoute(YearSelection());
+  }
+
+  @override
+  void handleError(context, String? errorMessage) {
+    MyToast.showToast(context, msg: errorMessage!,color: Colors.red);
   }
 }
 

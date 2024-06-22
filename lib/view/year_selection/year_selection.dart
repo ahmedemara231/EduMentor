@@ -1,9 +1,11 @@
 import 'package:fcis_guide/constants/constants.dart';
+import 'package:fcis_guide/modules/app_widgets/passing_message.dart';
 import 'package:fcis_guide/modules/base_widgets/myText.dart';
-import 'package:fcis_guide/modules/app_widgets/sheet_item_builder.dart';
+import 'package:fcis_guide/modules/app_widgets/handling_item_click/sheet_item_builder.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import '../../modules/app_widgets/handling_item_click/implementation.dart';
+import '../../modules/app_widgets/profile_action_button.dart';
 import '../../modules/data_types/getDeptData.dart';
 
 class YearSelection extends StatelessWidget {
@@ -19,8 +21,9 @@ class YearSelection extends StatelessWidget {
     'Fourth',
   ];
 
-  Future<void> showSheetForThirdAndFourth(context,{
-    required DeptDataRequest request
+  Future<void> showSheet(context,{
+    required DeptDataRequest request,
+    required List<String> choosingList
   })async
   {
     showModalBottomSheet(
@@ -28,35 +31,8 @@ class YearSelection extends StatelessWidget {
       builder: (context) => SheetItemBuilder(
         handleTabClick: HandleDeptClick(),
         request: request,
-        choosingList:
-        const [
-        'CS',
-        'IT',
-        'IS',
-        'SWE',
-        'BIO',
-        'AI',
-        ],
+        choosingList: choosingList
       )
-    );
-  }
-
-  Future<void> showSheetForFirstAndSecond(context,{
-    required DeptDataRequest request
-  })async
-  {
-    showModalBottomSheet(
-        context: context,
-        builder: (context) => SheetItemBuilder(
-          handleTabClick: HandleDeptClick(),
-          request: request,
-          choosingList: const [
-            'SWE',
-            'BIO',
-            'AI',
-            'General'
-          ],
-        )
     );
   }
 
@@ -72,6 +48,7 @@ class YearSelection extends StatelessWidget {
           fontWeight: FontWeight.bold,
           color: Colors.white,
         ),
+        actions: const [ProfileActionButton()],
       ),
       body: Padding(
         padding: EdgeInsets.symmetric(horizontal: 14.w,vertical: 25.h),
@@ -92,21 +69,35 @@ class YearSelection extends StatelessWidget {
                     {
                       case 2:
                       case 3:
-                        showSheetForThirdAndFourth(
+                        showSheet(
                           context,
                           request: DeptDataRequest(
                             year: '${academicYear[index].toLowerCase()}Year',
                             yearCode: index + 1,
                           ),
+                          choosingList: const [
+                            'CS',
+                            'IT',
+                            'IS',
+                            'SWE',
+                            'BIO',
+                            'AI',
+                          ],
                         );
 
                       default:
-                        showSheetForFirstAndSecond(
+                        showSheet(
                           context,
                           request: DeptDataRequest(
                             year: '${academicYear[index].toLowerCase()}Year',
                             yearCode: index + 1,
                           ),
+                          choosingList: const [
+                            'SWE',
+                            'BIO',
+                            'AI',
+                            'General'
+                          ],
                         );
                     }
                   },
@@ -128,20 +119,7 @@ class YearSelection extends StatelessWidget {
                 itemCount: academicYear.length,
               ),
             ),
-            Container(
-              decoration: BoxDecoration(
-                borderRadius: BorderRadius.circular(5),
-                color: Colors.white
-              ),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const Icon(Icons.warning_amber_sharp,color: Colors.black,),
-                  SizedBox(width: 5.w),
-                  MyText(text: 'To pass 4 years , you must complete 200 hours',fontWeight: FontWeight.w500,),
-                ],
-              ),
-            )
+            const PassingMessage(phase: '4 years',yearsNumber: 100),
           ],
         ),
       ),

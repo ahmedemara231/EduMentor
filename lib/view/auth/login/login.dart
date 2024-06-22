@@ -4,8 +4,8 @@ import 'package:fcis_guide/modules/app_widgets/Auth_TFF.dart';
 import 'package:fcis_guide/modules/app_widgets/app_button.dart';
 import 'package:fcis_guide/modules/base_widgets/myText.dart';
 import 'package:fcis_guide/view/auth/sign_up/sign_up.dart';
+import 'package:fcis_guide/view/year_selection/year_selection.dart';
 import 'package:fcis_guide/view_model/auth/cubit.dart';
-import 'package:fcis_guide/view_model/auth/handle_success/implementation.dart';
 import 'package:fcis_guide/view_model/auth/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -60,17 +60,19 @@ class _LoginState extends State<Login> {
                 text: 'email',
                 cont: emailCont,
               ),
-              AuthTFF(
-                text: 'password',
-                cont: passCont,
-                invisiblePass: AuthCubit.getInstance(context).invisiblePass[0],
-                suffixIcon: IconButton(
-                  onPressed: () {
-                    AuthCubit.getInstance(context).changePassVisibility(0);
-                  },
-                  icon: AuthCubit.getInstance(context).invisiblePass[0]?
-                  const Icon(Icons.visibility_off) :
-                  const Icon(Icons.visibility),
+              BlocBuilder<AuthCubit,AuthStates>(
+                builder: (context, state) => AuthTFF(
+                  text: 'password',
+                  cont: passCont,
+                  invisiblePass: AuthCubit.getInstance(context).invisiblePass[0],
+                  suffixIcon: IconButton(
+                    onPressed: () {
+                      AuthCubit.getInstance(context).changePassVisibility(0);
+                    },
+                    icon: AuthCubit.getInstance(context).invisiblePass[0]?
+                    const Icon(Icons.visibility_off) :
+                    const Icon(Icons.visibility),
+                  ),
                 ),
               ),
 
@@ -99,13 +101,12 @@ class _LoginState extends State<Login> {
                 Padding(
                   padding: EdgeInsets.only(bottom: 190.h),
                   child: AppButton(
-                    onPressed: () {
+                    onPressed: ()async {
                       if(formKey.currentState!.validate())
                       {
-                        AuthCubit.getInstance(context).auth(
+                        await AuthCubit.getInstance(context).auth(
                             context,
                             authService: FirebaseLoginCall(),
-                            handleSuccess: HandleLoginSuccess(),
                             email: emailCont.text,
                             password: passCont.text
                         );

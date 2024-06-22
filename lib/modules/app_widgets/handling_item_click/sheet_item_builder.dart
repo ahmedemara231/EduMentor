@@ -4,7 +4,7 @@ import 'package:fcis_guide/modules/data_types/getDeptData.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-import 'handling_item_click/interface.dart';
+import 'interface.dart';
 
 class SheetItemBuilder extends StatelessWidget {
 

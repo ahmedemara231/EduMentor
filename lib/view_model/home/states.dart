@@ -14,3 +14,5 @@ class GetDataFromSpecificYearError extends HomeStates {
   String? message;
   GetDataFromSpecificYearError(this.message);
 }
+
+class SwitchSemester extends HomeStates {}

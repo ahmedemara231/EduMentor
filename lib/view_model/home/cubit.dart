@@ -1,7 +1,9 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:fcis_guide/constants/constants.dart';
 import 'package:fcis_guide/model/remote/firebase_service/firestore_service/firestore_services.dart';
 import 'package:fcis_guide/modules/data_types/academic_year_info.dart';
 import 'package:fcis_guide/modules/data_types/getDeptData.dart';
+import 'package:fcis_guide/modules/data_types/subject.dart';
 import 'package:fcis_guide/view_model/home/states.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -64,15 +66,30 @@ class HomeCubit extends Cubit<HomeStates> {
         .doc(request?.deptCode.toString());
   }
 
-  Future<void> getSemesterData(String semester)async
+  int currentSemester = 0;
+  void switchSemester(int newVal)
   {
-    emit(GetSemesterDataLoading());
-    var result = await documentReference.collection(semester).get();
-    result.docs.forEach((element) {
-      print(element.data());
-    });
-    emit(GetSemesterDataLoading());
+    currentSemester = newVal;
+    emit(SwitchSemester());
   }
 
 
+  List<String> semesters = [Constants.firstSemester,Constants.secondSemester];
+  Map<String,List<Subject>> semesterSubjects = {};
+
+  Future<void> getSemesterData()async
+  {
+    emit(GetSemesterDataLoading());
+
+    for(String semester in semesters)
+      {
+        semesterSubjects[semester] = [];
+        var result = await documentReference.collection(semester).get();
+
+        result.docs.forEach((element) {
+          semesterSubjects[semester]?.add(Subject.fromJson(element.data()));
+        });
+        emit(GetSemesterDataSuccess());
+      }
+  }
 }

@@ -1,7 +1,6 @@
 import 'package:fcis_guide/extensions/routes.dart';
 import 'package:fcis_guide/model/remote/firebase_service/auth_service/auth_services_implementation.dart';
 import 'package:fcis_guide/view/auth/login/login.dart';
-import 'package:fcis_guide/view_model/auth/handle_success/implementation.dart';
 import 'package:fcis_guide/view_model/auth/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -112,13 +111,12 @@ class _SignUpState extends State<SignUp> {
                 state is AuthLoading?
                 const CircularProgressIndicator():
                 AppButton(
-                  onPressed: () {
+                  onPressed: () async{
                     if(formKey.currentState!.validate())
                     {
-                      AuthCubit.getInstance(context).auth(
+                      await AuthCubit.getInstance(context).auth(
                           context,
                           authService: FirebaseRegisterCall(),
-                          handleSuccess: HandleSignUpSuccess(),
                           email: emailCont.text,
                           password: passCont.text
                       );
