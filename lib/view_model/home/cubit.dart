@@ -38,6 +38,8 @@ class HomeCubit extends Cubit<HomeStates> {
             academicYearInfo = AcademicYearInfo.fromJson(value.docs[0].data() as Map<String, dynamic>);
           });
 
+          print(academicYearInfo.year);
+
 
           documentReference = await handleGetDataSuccess(
             collection: value.getOrThrow(),

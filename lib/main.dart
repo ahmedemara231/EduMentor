@@ -1,6 +1,7 @@
 import 'package:fcis_guide/constants/constants.dart';
 import 'package:fcis_guide/view/auth/first_view.dart';
 import 'package:fcis_guide/view/auth/login/login.dart';
+import 'package:fcis_guide/view/auth/sign_up/user_year_dept_selection.dart';
 import 'package:fcis_guide/view/feature_selection/feature_selection.dart';
 import 'package:fcis_guide/view/year_selection/year_selection.dart';
 import 'package:fcis_guide/view_model/auth/cubit.dart';

@@ -13,6 +13,11 @@ class AuthCubit extends Cubit<AuthStates>
 
   factory AuthCubit.getInstance(context) => BlocProvider.of(context);
 
+  String? year;
+  String? dept;
+
+
+
   List<bool> invisiblePass = [true,true,true];
   void changePassVisibility(int index)
   {
@@ -50,5 +55,4 @@ class AuthCubit extends Cubit<AuthStates>
     await FirebaseAuth.instance.signOut();
     emit(AuthSuccess());
   }
-
 }

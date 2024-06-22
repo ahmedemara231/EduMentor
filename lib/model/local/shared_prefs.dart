@@ -53,4 +53,9 @@ class CacheHelper
   {
     return shared.getStringList('userData');
   }
+
+  List<String>? getAcademicUserData()
+  {
+    return shared.getStringList('userAcademicData');
+  }
 }

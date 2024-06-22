@@ -10,6 +10,8 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:multiple_result/src/result.dart';
 
+import '../../../../view/auth/sign_up/user_year_dept_selection.dart';
+
 class FirebaseRegisterCall extends FirebaseAuthService
 {
   @override
@@ -44,7 +46,7 @@ class FirebaseRegisterCall extends FirebaseAuthService
 
   @override
   void handleSuccess(BuildContext context) {
-    context.removeOldRoute(Login());
+    context.removeOldRoute(const UserYearDeptSelection());
   }
 
   @override

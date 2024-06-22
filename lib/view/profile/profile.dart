@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:fcis_guide/constants/constants.dart';
 import 'package:fcis_guide/model/local/shared_prefs.dart';
 import 'package:fcis_guide/modules/app_widgets/profile_user_data_component.dart';
@@ -9,11 +10,23 @@ class Profile extends StatelessWidget {
   Profile({super.key});
 
   final profileData = 
-  const [
-    ProfileData(rightHandSideText: 'Faculty', leftHandSideText: 'Computer and information'),
-    ProfileData(rightHandSideText: 'Program', leftHandSideText: 'Software Engineering'),
-    ProfileData(rightHandSideText: 'Status', leftHandSideText: 'Regular'),
-    ProfileData(rightHandSideText: 'Level', leftHandSideText: '4'),
+  [
+    const ProfileData(
+      leftHandSideText: 'Faculty',
+      rightHandSideText: 'Computer and information',
+    ),
+    ProfileData(
+        leftHandSideText: 'Academic Year',
+        rightHandSideText: CacheHelper.getInstance().getAcademicUserData()![0]
+    ),
+    ProfileData(
+        leftHandSideText: 'Department',
+        rightHandSideText: CacheHelper.getInstance().getAcademicUserData()![1]
+    ),
+    const ProfileData(
+        leftHandSideText: 'Status',
+        rightHandSideText: 'Regular'
+    ),
 
   ];
   
@@ -38,7 +51,7 @@ class Profile extends StatelessWidget {
               padding: const EdgeInsets.all(8.0),
               child: CircleAvatar(
                 radius: 55.sp,
-                backgroundImage: NetworkImage('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQadzeS41vONIfTEWPgkhrALgZ31RSwdba_AA&s'),
+                backgroundImage: const CachedNetworkImageProvider(Constants.defaultPersonImage)
               ),
             ),
             SizedBox(height: 20.sp,),
@@ -73,12 +86,6 @@ class Profile extends StatelessWidget {
                     )),
                   ),
                 ),
-                // child: Column(
-                //   crossAxisAlignment: CrossAxisAlignment.center,
-                //   mainAxisSize: MainAxisSize.min,
-                //   children: [
-                //   ],
-                // ),
               ),
             ),
           ],

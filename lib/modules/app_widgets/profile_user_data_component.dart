@@ -3,13 +3,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileData extends StatelessWidget {
-  final String rightHandSideText;
+  final String? rightHandSideText;
   final String leftHandSideText;
   final Color? textColor;
 
   const ProfileData({super.key,
-    required this.rightHandSideText,
     required this.leftHandSideText,
+    required this.rightHandSideText,
     this.textColor,
   });
 
@@ -18,11 +18,11 @@ class ProfileData extends StatelessWidget {
     return Row(
       children: [
         MyText(
-          text: '$rightHandSideText : ',color: Colors.grey,
+          text: '$leftHandSideText : ',color: Colors.grey,
           fontSize: 14.sp,
         ),
         MyText(
-          text: leftHandSideText,
+          text: rightHandSideText!,
           fontSize: 14.sp,
           color: textColor??Colors.black,
           fontWeight: FontWeight.bold,
