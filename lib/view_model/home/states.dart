@@ -16,3 +16,6 @@ class GetDataFromSpecificYearError extends HomeStates {
 }
 
 class SwitchSemester extends HomeStates {}
+class GetResultingFromCoursesLoading extends HomeStates {}
+
+class GetResultingFromCoursesSuccess extends HomeStates {}

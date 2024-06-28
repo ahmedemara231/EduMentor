@@ -11,11 +11,13 @@ class Course extends StatelessWidget {
   final String englishName;
   final String arabicName;
   final CourseStatus status;
+  final void Function()? onPressed;
 
   const Course({super.key,
     required this.englishName,
     required this.arabicName,
     required this.status,
+    this.onPressed,
   });
 
   @override
@@ -36,7 +38,10 @@ class Course extends StatelessWidget {
       ),
       title: MyText(text: englishName,),
       subtitle: MyText(text: arabicName,),
-      trailing: const Icon(Icons.bar_chart_rounded),
+      trailing: IconButton(
+          onPressed: onPressed,
+          icon: const Icon(Icons.bar_chart_rounded)
+      ),
     );
   }
 }

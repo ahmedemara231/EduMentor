@@ -91,4 +91,23 @@ class HomeCubit extends Cubit<HomeStates> {
         emit(GetSemesterDataSuccess());
       }
   }
+
+  late List<Subject> resultingFromCourses;
+  Future<void> getResultingFromCourses(List resultingFrom)async
+  {
+    resultingFromCourses = [];
+    emit(GetResultingFromCoursesLoading());
+
+
+    resultingFrom.forEach((element) {
+      element.get().then((value) {
+        resultingFromCourses.add(Subject.fromJson(value.data()));
+      });
+    });
+
+
+
+    emit(GetResultingFromCoursesSuccess());
+  }
+
 }

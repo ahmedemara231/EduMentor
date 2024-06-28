@@ -26,7 +26,7 @@ class CoursesShimmerEffect extends StatelessWidget {
             arabicName:  'Name',
           ),
           separatorBuilder: (context, index) => SizedBox(height: 8.h,),
-          itemCount: 5
+          itemCount: 3
       ),
     );
   }
