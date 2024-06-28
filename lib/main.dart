@@ -7,6 +7,7 @@ import 'package:fcis_guide/view/year_selection/year_selection.dart';
 import 'package:fcis_guide/view_model/auth/cubit.dart';
 import 'package:fcis_guide/view_model/bloc_observer.dart';
 import 'package:fcis_guide/view_model/home/cubit.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

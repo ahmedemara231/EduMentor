@@ -109,7 +109,12 @@ class _SignUpState extends State<SignUp> {
               child: BlocBuilder<AuthCubit,AuthStates>(
                 builder: (context, state) =>
                 state is AuthLoading?
-                const CircularProgressIndicator():
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(),
+                  ],
+                ):
                 AppButton(
                   onPressed: () async{
                     if(formKey.currentState!.validate())

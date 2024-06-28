@@ -34,12 +34,9 @@ class HomeCubit extends Cubit<HomeStates> {
     {
       if(value.isSuccess())
         {
-          value.getOrThrow().get().then((value) {
+          await value.getOrThrow().get().then((value) {
             academicYearInfo = AcademicYearInfo.fromJson(value.docs[0].data() as Map<String, dynamic>);
           });
-
-          print(academicYearInfo.year);
-
 
           documentReference = await handleGetDataSuccess(
             collection: value.getOrThrow(),

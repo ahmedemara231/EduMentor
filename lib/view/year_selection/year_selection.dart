@@ -65,41 +65,18 @@ class YearSelection extends StatelessWidget {
                 itemBuilder: (context, index) => InkWell(
                   onTap: ()
                   {
-                    switch(index)
-                    {
-                      case 2:
-                      case 3:
-                        showSheet(
-                          context,
-                          request: DeptDataRequest(
-                            year: '${academicYear[index].toLowerCase()}Year',
-                            yearCode: index + 1,
-                          ),
-                          choosingList: const [
-                            'CS',
-                            'IT',
-                            'IS',
-                            'SWE',
-                            'BIO',
-                            'AI',
-                          ],
-                        );
-
-                      default:
-                        showSheet(
-                          context,
-                          request: DeptDataRequest(
-                            year: '${academicYear[index].toLowerCase()}Year',
-                            yearCode: index + 1,
-                          ),
-                          choosingList: const [
-                            'SWE',
-                            'BIO',
-                            'AI',
-                            'General'
-                          ],
-                        );
-                    }
+                    showSheet(
+                      context,
+                      request: DeptDataRequest(
+                        year: '${academicYear[index].toLowerCase()}Year',
+                        yearCode: index + 1,
+                      ),
+                      choosingList: const [
+                        'SWE',
+                        'BIO',
+                        'AI',
+                      ],
+                    );
                   },
                   child: Container(
                     decoration: BoxDecoration(

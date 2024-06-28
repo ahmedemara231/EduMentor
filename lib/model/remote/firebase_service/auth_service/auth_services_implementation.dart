@@ -47,6 +47,7 @@ class FirebaseRegisterCall extends FirebaseAuthService
   @override
   void handleSuccess(BuildContext context) {
     context.removeOldRoute(const UserYearDeptSelection());
+
   }
 
   @override

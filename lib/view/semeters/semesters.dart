@@ -30,6 +30,9 @@ class _SemestersState extends State<Semesters> {
     HomeCubit.getInstance(context).currentSemester = widget.selectedIndex;
     super.initState();
   }
+
+  List<CourseStatus> status = [CourseStatus.passed];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -104,8 +107,9 @@ class _SemestersState extends State<Semesters> {
                           ListView.separated(
                               shrinkWrap: true,
                               itemBuilder: (context, index) => Course(
-                                  englishName: HomeCubit.getInstance(context).semesterSubjects[HomeCubit.getInstance(context).semesters[HomeCubit.getInstance(context).currentSemester]]![index].name,
-                                  arabicName: HomeCubit.getInstance(context).semesterSubjects[HomeCubit.getInstance(context).semesters[HomeCubit.getInstance(context).currentSemester]]![index].name
+                                englishName: HomeCubit.getInstance(context).semesterSubjects[HomeCubit.getInstance(context).semesters[HomeCubit.getInstance(context).currentSemester]]![index].name,
+                                arabicName: HomeCubit.getInstance(context).semesterSubjects[HomeCubit.getInstance(context).semesters[HomeCubit.getInstance(context).currentSemester]]![index].name,
+                                status: status[index],
                               ),
                               separatorBuilder: (context, index) => SizedBox(height: 8.h,),
                               itemCount:  HomeCubit.getInstance(context).semesterSubjects[HomeCubit.getInstance(context).semesters[HomeCubit.getInstance(context).currentSemester]]!.length
@@ -140,7 +144,6 @@ class _SemestersState extends State<Semesters> {
                                 ),
                                 child: MyText(
                                     text: semesters[index],
-                                    fontSize: 15.sp,
                                     fontWeight: FontWeight.bold
                                 ),
                               ),

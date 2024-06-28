@@ -7,11 +7,11 @@ class CoursesShimmerEffect extends StatelessWidget {
   const CoursesShimmerEffect({super.key});
   final List<Course> courses =
   const [
-    Course(englishName: 'Introduction to computer science', arabicName: 'مقدمة علوم الحاسب'),
-    Course(englishName: 'Introduction to computer science', arabicName: 'مقدمة علوم الحاسب'),
-    Course(englishName: 'Introduction to computer science', arabicName: 'مقدمة علوم الحاسب'),
-    Course(englishName: 'Introduction to computer science', arabicName: 'مقدمة علوم الحاسب'),
-    Course(englishName: 'Introduction to computer science', arabicName: 'مقدمة علوم الحاسب'),
+    Course(englishName: 'Introduction to computer science', arabicName: 'مقدمة علوم الحاسب',status: CourseStatus.passed),
+    Course(englishName: 'Introduction to computer science', arabicName: 'مقدمة علوم الحاسب',status: CourseStatus.passed),
+    Course(englishName: 'Introduction to computer science', arabicName: 'مقدمة علوم الحاسب',status: CourseStatus.passed),
+    Course(englishName: 'Introduction to computer science', arabicName: 'مقدمة علوم الحاسب',status: CourseStatus.passed),
+    Course(englishName: 'Introduction to computer science', arabicName: 'مقدمة علوم الحاسب',status: CourseStatus.passed),
   ];
   @override
   Widget build(BuildContext context) {
@@ -21,8 +21,9 @@ class CoursesShimmerEffect extends StatelessWidget {
       child: ListView.separated(
           shrinkWrap: true,
           itemBuilder: (context, index) => const Course(
-              englishName: 'Name',
-              arabicName:  'Name',
+            status: CourseStatus.passed,
+            englishName: 'Name',
+            arabicName:  'Name',
           ),
           separatorBuilder: (context, index) => SizedBox(height: 8.h,),
           itemCount: 5

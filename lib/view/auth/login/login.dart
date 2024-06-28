@@ -7,6 +7,7 @@ import 'package:fcis_guide/view/auth/sign_up/sign_up.dart';
 import 'package:fcis_guide/view/year_selection/year_selection.dart';
 import 'package:fcis_guide/view_model/auth/cubit.dart';
 import 'package:fcis_guide/view_model/auth/states.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -97,7 +98,12 @@ class _LoginState extends State<Login> {
               BlocBuilder<AuthCubit,AuthStates>(
                 builder: (context, state) =>
                 state is AuthLoading?
-                const CircularProgressIndicator():
+                const Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    CircularProgressIndicator(),
+                  ],
+                ):
                 Padding(
                   padding: EdgeInsets.only(bottom: 190.h),
                   child: AppButton(
@@ -116,7 +122,6 @@ class _LoginState extends State<Login> {
                   ),
                 ),
               ),
-
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [

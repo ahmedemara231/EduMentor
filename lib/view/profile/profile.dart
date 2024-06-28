@@ -17,11 +17,11 @@ class Profile extends StatelessWidget {
     ),
     ProfileData(
         leftHandSideText: 'Academic Year',
-        rightHandSideText: CacheHelper.getInstance().getAcademicUserData()![0]
+        rightHandSideText: CacheHelper.getInstance().getAcademicUserData()?[0]??'Set'
     ),
     ProfileData(
         leftHandSideText: 'Department',
-        rightHandSideText: CacheHelper.getInstance().getAcademicUserData()![1]
+        rightHandSideText: CacheHelper.getInstance().getAcademicUserData()?[1]??'Set'
     ),
     const ProfileData(
         leftHandSideText: 'Status',

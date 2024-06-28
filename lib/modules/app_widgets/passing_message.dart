@@ -24,7 +24,12 @@ class PassingMessage extends StatelessWidget {
         children: [
           const Icon(Icons.warning_amber_sharp,color: Colors.black,),
           SizedBox(width: 5.w),
-          MyText(text: 'To pass $phase , you must complete $yearsNumber hours',fontWeight: FontWeight.w500,),
+          Expanded(
+            child: MyText(
+              text: 'To pass $phase , you must complete $yearsNumber hours',
+              fontWeight: FontWeight.w500,
+            ),
+          ),
         ],
       ),
     );
