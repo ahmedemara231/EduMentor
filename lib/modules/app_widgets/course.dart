@@ -51,18 +51,19 @@ class Course extends StatelessWidget {
                   ),
               ),
             ),
-            ListTile(
-              leading: CircleAvatar(
-                radius: 16.sp,
-                backgroundImage: const CachedNetworkImageProvider(Constants.defaultBookImage)
-              ),
-              title: MyText(text: englishName,color: color,),
-              subtitle: MyText(text: arabicName,color: color,),
-              trailing: IconButton(
-                  onPressed: onPressed,
-                  icon: const Icon(Icons.bar_chart_rounded)
-              ),
-            ),
+            MyText(text: englishName,color: color,),
+            MyText(text: arabicName,color: color,),
+            // ListTile(
+            //   leading: CircleAvatar(
+            //     radius: 16.sp,
+            //     backgroundImage: const CachedNetworkImageProvider(Constants.defaultBookImage)
+            //   ),
+            //   title:
+            //   subtitle:
+            //   trailing: IconButton(
+            //       onPressed: onPressed,
+            //       icon: const Icon(Icons.bar_chart_rounded)
+            //   ),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 5.h),
               child: const MyDivider(height: 1.5),

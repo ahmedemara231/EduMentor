@@ -97,9 +97,7 @@ class _SemestersState extends State<Semesters> {
               ),
             ),
 
-
             SizedBox(height: 50.h),
-
 
             BlocBuilder<HomeCubit,HomeStates>(
               builder: (context, state) => Stack(
@@ -142,7 +140,7 @@ class _SemestersState extends State<Semesters> {
                                   padding: const EdgeInsets.all(8.0),
                                   child: Course(
                                     englishName: homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].name,
-                                    arabicName: homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].name,
+                                    arabicName: homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].arabicName!,
                                     color: homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].resultingFromNames.length > 2?
                                     Colors.blue :
                                     homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].resultingFromNames.length == 2?

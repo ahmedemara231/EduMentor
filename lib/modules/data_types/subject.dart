@@ -1,6 +1,7 @@
 class Subject
 {
   String name;
+  String? arabicName;
   String doctor;
   String totalHours;
   List<dynamic> resultingFrom;
@@ -14,6 +15,7 @@ class Subject
     required this.courseHours,
     required this.resultingFrom,
     required this.resultingFromNames,
+    required this.arabicName,
   });
 
   factory Subject.fromJson(Map<String,dynamic> subjectData)
@@ -25,6 +27,7 @@ class Subject
       courseHours: subjectData['courseHours'],
       resultingFrom: subjectData['resultingFrom'],
       resultingFromNames: subjectData['resultingFromNames'],
+      arabicName: subjectData['arabicName']
     );
   }
 }
