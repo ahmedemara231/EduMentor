@@ -5,11 +5,13 @@ class Subject
   String totalHours;
   List<dynamic> resultingFrom;
   List<dynamic> resultingFromNames;
+  int courseHours;
 
   Subject({
     required this.name,
     required this.doctor,
     required this.totalHours,
+    required this.courseHours,
     required this.resultingFrom,
     required this.resultingFromNames,
   });
@@ -20,8 +22,9 @@ class Subject
       name: subjectData['subject'],
       doctor: subjectData['doctor'],
       totalHours: subjectData['totalHours'],
+      courseHours: subjectData['courseHours'],
       resultingFrom: subjectData['resultingFrom'],
-      resultingFromNames: subjectData['resultingFromNames']
+      resultingFromNames: subjectData['resultingFromNames'],
     );
   }
 }

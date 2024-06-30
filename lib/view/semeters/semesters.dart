@@ -1,6 +1,8 @@
 import 'package:fcis_guide/constants/constants.dart';
 import 'package:fcis_guide/extensions/context.dart';
+import 'package:fcis_guide/modules/app_widgets/courses_notes.dart';
 import 'package:fcis_guide/modules/base_widgets/myText.dart';
+import 'package:fcis_guide/modules/data_types/course_notes.dart';
 import 'package:fcis_guide/view/semeters/shimmer_effect.dart';
 import 'package:fcis_guide/view_model/home/cubit.dart';
 import 'package:fcis_guide/view_model/home/states.dart';
@@ -37,6 +39,16 @@ class _SemestersState extends State<Semesters> {
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
+  final List<CourseNoteType> courseNotes = 
+  [
+    CourseNoteType(color: Colors.green, des: 'Success'),
+    CourseNoteType(color: Colors.red, des: 'Failure'),
+    CourseNoteType(color: Colors.grey, des: 'Regular'),
+    CourseNoteType(color: Colors.blue, des: 'High Recommended'),
+    CourseNoteType(color: Colors.yellow, des: 'Elective'),
+    CourseNoteType(color: Colors.black, des: 'Not Recommended'),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -53,7 +65,7 @@ class _SemestersState extends State<Semesters> {
       ),
       body: Padding(
         padding: const EdgeInsets.all(12.0),
-        child: Column(
+        child: ListView(
           children: [
             Container(
               decoration: BoxDecoration(
@@ -110,7 +122,7 @@ class _SemestersState extends State<Semesters> {
                             child: Padding(
                               padding: EdgeInsets.symmetric(vertical: 10.h,horizontal: 20.w),
                               child: MyText(
-                                text: 'Passed : 18 hrs',
+                                text: '🕒 Passed hours : 18 hrs',
                                 color: Constants.appColor,
                                 fontSize: 12.sp,
                                 fontWeight: FontWeight.w500,
@@ -122,62 +134,65 @@ class _SemestersState extends State<Semesters> {
                             child: MyText(text: 'Courses',color: Constants.appColor,fontSize: 16.sp,),
                           ),
 
-                          ListView.separated(
-                              shrinkWrap: true,
-                              itemBuilder: (context, courseIndex) => Padding(
-                                padding: const EdgeInsets.all(8.0),
-                                child: Course(
-                                  englishName: homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].name,
-                                  arabicName: homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].name,
-                                  color: homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].resultingFromNames.length > 2?
-                                  Colors.green :
-                                  homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].resultingFromNames.length == 2?
-                                  Colors.yellow : Colors.red,
-                                  status: status[0],
-                                  resultingFromNames: List.generate(
-                                      homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].resultingFromNames.length,
-                                          (index) =>  MyText(
-                                            text: '${homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].resultingFromNames[index]}  ',
+                          SizedBox(
+                            height: 250.h,
+                            child: ListView.separated(
+                                shrinkWrap: true,
+                                itemBuilder: (context, courseIndex) => Padding(
+                                  padding: const EdgeInsets.all(8.0),
+                                  child: Course(
+                                    englishName: homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].name,
+                                    arabicName: homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].name,
+                                    color: homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].resultingFromNames.length > 2?
+                                    Colors.blue :
+                                    homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].resultingFromNames.length == 2?
+                                    Colors.yellow : Colors.black,
+                                    status: status[0],
+                                    courseHours: homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].courseHours,
+                                    resultingFromNames: List.generate(
+                                        homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].resultingFromNames.length,
+                                            (index) =>  MyText(
+                                              text: '${homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].resultingFromNames[index]}  ',
 
-                                          ),
-                                  ),
-                                  onPressed: ()async
-                                  {
-                                    await homeCubit.getResultingFromCourses(
-                                        homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].resultingFrom
-                                    ).whenComplete(() {
-                                      scaffoldKey.currentState?.showBottomSheet(
-                                            (context) => Container(
-                                          height: context.setHeight(2),
-                                          width: double.infinity,
-                                          decoration: BoxDecoration(
-                                            borderRadius: BorderRadius.circular(16),
-                                            color: Colors.white,
-                                          ),
-                                          child: state is GetResultingFromCoursesLoading?
-                                          const CircularProgressIndicator():
-                                          ListView.builder(
-                                            itemBuilder: (context, index) => Padding(
-                                              padding: const EdgeInsets.all(8.0),
-                                              child: Course(
-                                                  englishName: homeCubit.resultingFromCourses[index].name,
-                                                  arabicName: homeCubit.resultingFromCourses[index].name,
-                                                  status: status[0],
-                                                  onPressed: null
-                                              ),
                                             ),
-                                            itemCount: homeCubit.resultingFromCourses.length,
+                                    ),
+                                    onPressed: ()async
+                                    {
+                                      await homeCubit.getResultingFromCourses(
+                                          homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].resultingFrom
+                                      ).whenComplete(() {
+                                        scaffoldKey.currentState?.showBottomSheet(
+                                              (context) => Container(
+                                            height: context.setHeight(2),
+                                            width: double.infinity,
+                                            decoration: BoxDecoration(
+                                              borderRadius: BorderRadius.circular(16),
+                                              color: Colors.white,
+                                            ),
+                                            child: state is GetResultingFromCoursesLoading?
+                                            const CircularProgressIndicator():
+                                            ListView.builder(
+                                              itemBuilder: (context, index) => Padding(
+                                                padding: const EdgeInsets.all(8.0),
+                                                child: Course(
+                                                    englishName: homeCubit.resultingFromCourses[index].name,
+                                                    arabicName: homeCubit.resultingFromCourses[index].name,
+                                                    status: status[0],
+                                                    onPressed: null
+                                                ),
+                                              ),
+                                              itemCount: homeCubit.resultingFromCourses.length,
+                                            ),
                                           ),
-                                        ),
-                                      );
-                                    });
-                                  },
+                                        );
+                                      });
+                                    },
+                                  ),
                                 ),
-                              ),
-                              separatorBuilder: (context, index) => SizedBox(height: 8.h,),
-                              itemCount:
-                              homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]!.length
-                          )
+                                separatorBuilder: (context, index) => SizedBox(height: 8.h,),
+                                itemCount: homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]!.length
+                            ),
+                          ),
                         ],
                       ),
                     ),
@@ -220,6 +235,20 @@ class _SemestersState extends State<Semesters> {
                 ],
               ),
             ),
+
+            GridView.builder(
+              shrinkWrap: true,
+              physics: const NeverScrollableScrollPhysics(),
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                  childAspectRatio: 3,
+                  crossAxisCount: 3
+              ),
+              itemBuilder: (context, index) => CourseNote(
+                circleColor: courseNotes[index].color,
+                des: courseNotes[index].des,
+              ),
+              itemCount: courseNotes.length,
+            )
           ],
         ),
       ),
