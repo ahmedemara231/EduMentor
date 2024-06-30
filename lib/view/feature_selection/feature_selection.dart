@@ -5,6 +5,7 @@ import 'package:fcis_guide/modules/app_widgets/handling_item_click/sheet_item_bu
 import 'package:fcis_guide/modules/app_widgets/profile_action_button.dart';
 import 'package:fcis_guide/modules/base_widgets/myText.dart';
 import 'package:fcis_guide/modules/data_types/getDeptData.dart';
+import 'package:fcis_guide/view/notes/notes.dart';
 import 'package:fcis_guide/view/profile/profile.dart';
 import 'package:fcis_guide/view_model/home/cubit.dart';
 import 'package:flutter/material.dart';
@@ -79,6 +80,8 @@ class FeatureSelection extends StatelessWidget {
                         showSemesterBottomSheet(context);
                       case 2:
                         context.normalNewRoute(const Docs());
+                      case 3:
+                        context.normalNewRoute(const Notes());
                     }
                   },
                   child: Container(
