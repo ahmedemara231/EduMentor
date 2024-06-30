@@ -10,37 +10,48 @@ class Course extends StatelessWidget {
 
   final String englishName;
   final String arabicName;
+  final Color? color;
   final CourseStatus status;
   final void Function()? onPressed;
+  final List<Widget>? resultingFromNames;
 
   const Course({super.key,
     required this.englishName,
     required this.arabicName,
+    this.color,
     required this.status,
     this.onPressed,
+    this.resultingFromNames,
   });
 
   @override
   Widget build(BuildContext context) {
-    return ListTile(
-      leading: Stack(
-        alignment: Alignment.center,
-        children: [
-          CircleAvatar(
-            radius: 19.sp,
-            backgroundColor: status == CourseStatus.passed? Colors.green : Colors.red,
-          ),
-          CircleAvatar(
-            radius: 16.sp,
-            backgroundImage: const CachedNetworkImageProvider(Constants.defaultBookImage)
-          ),
-        ],
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(
+            color: status == CourseStatus.passed?
+            Colors.green : status == CourseStatus.waiting? Colors.grey : Colors.red
+        )
       ),
-      title: MyText(text: englishName,),
-      subtitle: MyText(text: arabicName,),
-      trailing: IconButton(
-          onPressed: onPressed,
-          icon: const Icon(Icons.bar_chart_rounded)
+      child: Column(
+        children: [
+          ListTile(
+            leading: CircleAvatar(
+              radius: 16.sp,
+              backgroundImage: const CachedNetworkImageProvider(Constants.defaultBookImage)
+            ),
+            title: MyText(text: englishName,color: color,),
+            subtitle: MyText(text: arabicName,color: color,),
+            trailing: IconButton(
+                onPressed: onPressed,
+                icon: const Icon(Icons.bar_chart_rounded)
+            ),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: resultingFromNames!,
+          )
+        ],
       ),
     );
   }

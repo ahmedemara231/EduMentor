@@ -27,6 +27,10 @@ class Profile extends StatelessWidget {
         leftHandSideText: 'Status',
         rightHandSideText: 'Regular'
     ),
+    const ProfileData(
+        leftHandSideText: 'To be graduate',
+        rightHandSideText: '60 Hrs'
+    ),
 
   ];
   

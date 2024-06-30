@@ -1,5 +1,3 @@
-import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fcis_guide/constants/constants.dart';
 import 'package:fcis_guide/extensions/context.dart';
 import 'package:fcis_guide/modules/base_widgets/myText.dart';
@@ -107,45 +105,74 @@ class _SemestersState extends State<Semesters> {
                       Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
+                          Align(
+                            alignment: Alignment.center,
+                            child: Padding(
+                              padding: EdgeInsets.symmetric(vertical: 10.h,horizontal: 20.w),
+                              child: MyText(
+                                text: 'Passed : 18 hrs',
+                                color: Constants.appColor,
+                                fontSize: 12.sp,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
+                          ),
                           Padding(
-                            padding: EdgeInsets.symmetric(vertical: 10.h,horizontal: 20.w),
+                            padding: EdgeInsets.symmetric(horizontal: 20.w),
                             child: MyText(text: 'Courses',color: Constants.appColor,fontSize: 16.sp,),
                           ),
 
                           ListView.separated(
                               shrinkWrap: true,
-                              itemBuilder: (context, index) => Course(
-                                englishName: homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![index].name,
-                                arabicName: homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![index].name,
-                                status: status[0],
-                                onPressed: ()async
-                                {
-                                  await homeCubit.getResultingFromCourses(
-                                      homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![index].resultingFrom
-                                  ).whenComplete(() {
-                                    scaffoldKey.currentState?.showBottomSheet(
-                                          (context) => Container(
-                                        height: context.setHeight(2),
-                                        width: double.infinity,
-                                        decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(16),
-                                          color: Colors.white,
-                                        ),
-                                        child: state is GetResultingFromCoursesLoading?
-                                        const CircularProgressIndicator():
-                                        ListView.builder(
-                                          itemBuilder: (context, index) => Course(
-                                              englishName: homeCubit.resultingFromCourses[index].name,
-                                              arabicName: homeCubit.resultingFromCourses[index].name,
-                                              status: status[0],
-                                              onPressed: null
+                              itemBuilder: (context, courseIndex) => Padding(
+                                padding: const EdgeInsets.all(8.0),
+                                child: Course(
+                                  englishName: homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].name,
+                                  arabicName: homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].name,
+                                  color: homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].resultingFromNames.length > 2?
+                                  Colors.green :
+                                  homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].resultingFromNames.length == 2?
+                                  Colors.yellow : Colors.red,
+                                  status: status[0],
+                                  resultingFromNames: List.generate(
+                                      homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].resultingFromNames.length,
+                                          (index) =>  MyText(
+                                            text: '${homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].resultingFromNames[index]}  ',
+
                                           ),
-                                          itemCount: homeCubit.resultingFromCourses.length,
+                                  ),
+                                  onPressed: ()async
+                                  {
+                                    await homeCubit.getResultingFromCourses(
+                                        homeCubit.semesterSubjects[homeCubit.semesters[homeCubit.currentSemester]]![courseIndex].resultingFrom
+                                    ).whenComplete(() {
+                                      scaffoldKey.currentState?.showBottomSheet(
+                                            (context) => Container(
+                                          height: context.setHeight(2),
+                                          width: double.infinity,
+                                          decoration: BoxDecoration(
+                                            borderRadius: BorderRadius.circular(16),
+                                            color: Colors.white,
+                                          ),
+                                          child: state is GetResultingFromCoursesLoading?
+                                          const CircularProgressIndicator():
+                                          ListView.builder(
+                                            itemBuilder: (context, index) => Padding(
+                                              padding: const EdgeInsets.all(8.0),
+                                              child: Course(
+                                                  englishName: homeCubit.resultingFromCourses[index].name,
+                                                  arabicName: homeCubit.resultingFromCourses[index].name,
+                                                  status: status[0],
+                                                  onPressed: null
+                                              ),
+                                            ),
+                                            itemCount: homeCubit.resultingFromCourses.length,
+                                          ),
                                         ),
-                                      ),
-                                    );
-                                  });
-                                },
+                                      );
+                                    });
+                                  },
+                                ),
                               ),
                               separatorBuilder: (context, index) => SizedBox(height: 8.h,),
                               itemCount:

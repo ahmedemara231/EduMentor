@@ -19,3 +19,7 @@ class SwitchSemester extends HomeStates {}
 class GetResultingFromCoursesLoading extends HomeStates {}
 
 class GetResultingFromCoursesSuccess extends HomeStates {}
+
+class GetSlateLoading extends HomeStates {}
+
+class GetSlateSuccess extends HomeStates {}

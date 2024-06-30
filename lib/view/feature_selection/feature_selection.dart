@@ -6,10 +6,12 @@ import 'package:fcis_guide/modules/app_widgets/profile_action_button.dart';
 import 'package:fcis_guide/modules/base_widgets/myText.dart';
 import 'package:fcis_guide/modules/data_types/getDeptData.dart';
 import 'package:fcis_guide/view/profile/profile.dart';
+import 'package:fcis_guide/view_model/home/cubit.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 import '../../modules/app_widgets/passing_message.dart';
+import '../docs/docs.dart';
 
 class FeatureSelection extends StatelessWidget {
   final String year;
@@ -21,9 +23,8 @@ class FeatureSelection extends StatelessWidget {
   [
     'Profile',
     'Semesters',
-    'Exams',
-    'E-Learning',
-    'Documents'
+    'Documents',
+    'Notes',
   ];
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
@@ -76,6 +77,8 @@ class FeatureSelection extends StatelessWidget {
                         context.normalNewRoute(Profile());
                       case 1:
                         showSemesterBottomSheet(context);
+                      case 2:
+                        context.normalNewRoute(const Docs());
                     }
                   },
                   child: Container(

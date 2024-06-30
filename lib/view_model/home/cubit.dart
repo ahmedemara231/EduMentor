@@ -1,6 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:fcis_guide/constants/constants.dart';
 import 'package:fcis_guide/model/remote/firebase_service/firestore_service/firestore_services.dart';
+import 'package:fcis_guide/model/remote/firebase_service/storage_service/implementation.dart';
+import 'package:fcis_guide/model/remote/firebase_service/storage_service/interface.dart';
 import 'package:fcis_guide/modules/data_types/academic_year_info.dart';
 import 'package:fcis_guide/modules/data_types/getDeptData.dart';
 import 'package:fcis_guide/modules/data_types/subject.dart';
@@ -105,9 +107,18 @@ class HomeCubit extends Cubit<HomeStates> {
       });
     });
 
-
-
     emit(GetResultingFromCoursesSuccess());
+  }
+
+  FireStorageService fireStorageService = FireStorageCall();
+  late List<String> urls;
+  Future<void> getSlate()async
+  {
+    urls = [];
+    emit(GetSlateLoading());
+    final result = await fireStorageService.callFireStorage();
+    urls = result.getOrThrow();
+    emit(GetSlateSuccess());
   }
 
 }
