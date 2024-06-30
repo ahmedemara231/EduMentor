@@ -25,7 +25,7 @@ class Semesters extends StatefulWidget {
 }
 
 class _SemestersState extends State<Semesters> {
-  final List<String> semesters = [Constants.firstSemester,Constants.secondSemester];
+  final List<String> semesters = ['First Semester','Second Semester'];
 
   late HomeCubit homeCubit;
   @override
@@ -216,7 +216,7 @@ class _SemestersState extends State<Semesters> {
                             child: Center(
                               child: Padding(
                                 padding: EdgeInsets.symmetric(
-                                    horizontal: context.setWidth(13),
+                                    horizontal: context.setWidth(14),
                                     vertical: 15.h
                                 ),
                                 child: MyText(

@@ -6,6 +6,8 @@ import 'package:fcis_guide/view/auth/sign_up/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../../constants/constants.dart';
+
 class FirstView extends StatelessWidget {
   const FirstView({super.key});
 
@@ -18,7 +20,14 @@ class FirstView extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             const Spacer(),
-
+            Padding(
+              padding: const EdgeInsets.all(16.0),
+              child: SizedBox(
+                height: 120.h,
+                width: 120.w,
+                child: Image.asset(Constants.appLogo),
+              ),
+            ),
             AppButton(
               onPressed: () => context.removeOldRoute(Login()),
               text: 'Login',

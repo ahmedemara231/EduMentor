@@ -5,6 +5,7 @@ import 'package:fcis_guide/view_model/auth/states.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import '../../../constants/constants.dart';
 import '../../../modules/app_widgets/Auth_TFF.dart';
 import '../../../modules/app_widgets/app_button.dart';
 import '../../../modules/base_widgets/myText.dart';
@@ -86,6 +87,11 @@ class _SignUpState extends State<SignUp> {
         padding: EdgeInsets.symmetric(horizontal: 16.w),
         child: ListView(
           children: [
+            SizedBox(
+              height: 120.h,
+              width: 120.w,
+              child: Image.asset(Constants.appLogo),
+            ),
             Padding(
               padding: EdgeInsets.symmetric(vertical: 25.h),
               child: Center(

@@ -68,6 +68,25 @@ class Course extends StatelessWidget {
               padding: EdgeInsets.symmetric(horizontal: 16.w,vertical: 5.h),
               child: const MyDivider(height: 1.5),
             ),
+
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: List.generate(
+                  resultingFromNames!.length,
+                      (index) =>  Padding(
+                        padding: const EdgeInsets.symmetric(horizontal: 10),
+                        child: CircleAvatar(
+                          backgroundColor: Colors.black,
+                          radius: 10.sp,
+                          child: MyText(
+                            text: 2.toString(),
+                            color: Colors.white,
+                          ),
+                        ),
+                      ),
+              )
+            ),
+
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: resultingFromNames!,

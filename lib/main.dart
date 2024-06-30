@@ -3,6 +3,7 @@ import 'package:fcis_guide/view/auth/first_view.dart';
 import 'package:fcis_guide/view/auth/login/login.dart';
 import 'package:fcis_guide/view/auth/sign_up/user_year_dept_selection.dart';
 import 'package:fcis_guide/view/feature_selection/feature_selection.dart';
+import 'package:fcis_guide/view/splash.dart';
 import 'package:fcis_guide/view/year_selection/year_selection.dart';
 import 'package:fcis_guide/view_model/auth/cubit.dart';
 import 'package:fcis_guide/view_model/bloc_observer.dart';
@@ -54,7 +55,7 @@ class MyApp extends StatelessWidget {
             )
           ),
           debugShowCheckedModeBanner: false,
-          home: YearSelection(),
+          home: Splash(),
           builder: EasyLoading.init(),
         ),
       ),

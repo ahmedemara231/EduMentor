@@ -1,3 +1,4 @@
+import 'package:fcis_guide/constants/constants.dart';
 import 'package:fcis_guide/extensions/routes.dart';
 import 'package:fcis_guide/model/remote/firebase_service/auth_service/auth_services_implementation.dart';
 import 'package:fcis_guide/modules/app_widgets/Auth_TFF.dart';
@@ -45,7 +46,11 @@ class _LoginState extends State<Login> {
           padding: EdgeInsets.symmetric(horizontal: 16.w),
           child: ListView(
             children: [
-
+              SizedBox(
+                height: 120.h,
+                width: 120.w,
+                child: Image.asset(Constants.appLogo),
+              ),
               Padding(
                 padding: EdgeInsets.symmetric(vertical: 25.h),
                 child: Center(
