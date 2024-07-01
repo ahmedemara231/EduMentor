@@ -1,3 +1,4 @@
+import 'package:fcis_guide/extensions/context.dart';
 import 'package:fcis_guide/modules/base_widgets/myText.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -58,29 +59,37 @@ class _ExpansionTileWidgetState extends State<ExpansionTileWidget> {
                     text: widget.titleOverride??widget.title,
                     fontSize: 14.sp,
                 ),
-                children: List.generate(
-                  widget.choosingList.length, (index) => InkWell(
-                      onTap: ()
-                      {
-                        setState(() {
-                          widget.titleOverride = widget.choosingList[index];
-                          controller.collapse();
-                        });
-                      },
-                      child: Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: Row(
-                          children: [
-                            MyText(
-                              text: widget.choosingList[index],
-                              fontWeight: FontWeight.w500,
-                              fontSize: 15.sp,
-                            ),
-                          ],
+                children: [
+                  SizedBox(
+                    height : context.setHeight(2.5),
+                    child: ListView(
+                      children: List.generate(
+                        widget.choosingList.length, (index) => InkWell(
+                        onTap: widget.choosingList[index].startsWith('s')?
+                        null :()
+                        {
+                          setState(() {
+                            widget.titleOverride = widget.choosingList[index];
+                            controller.collapse();
+                          });
+                        },
+                        child: Padding(
+                          padding: const EdgeInsets.all(12.0),
+                          child: Row(
+                            children: [
+                              MyText(
+                                text: widget.choosingList[index],
+                                fontWeight: FontWeight.w500,
+                                fontSize: 15.sp,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                  ),
-                )
+                      ),
+                    ),
+                  )
+                ]
             ),
           ),
         ),

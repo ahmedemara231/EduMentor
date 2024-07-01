@@ -25,9 +25,13 @@ class _UserYearDeptSelectionState extends State<UserYearDeptSelection> {
         choosingList:
         const [
           'First',
+          'summer 1',
           'Second',
+          'summer 2',
           'Third',
+          'summer 3',
           'Fourth',
+          'summer 4'
         ],
         title: 'Select your current academic year',
     ),
@@ -39,7 +43,16 @@ class _UserYearDeptSelectionState extends State<UserYearDeptSelection> {
           'Artificial Intelligence'
         ],
         title: 'Select your Department',
-    )
+    ),
+
+    ExpansionTileWidget(
+      choosingList:
+      const [
+        'First',
+        'Second',
+      ],
+      title: 'Select your Semester',
+    ),
   ];
 
   int currentPage = 0;
@@ -49,6 +62,7 @@ class _UserYearDeptSelectionState extends State<UserYearDeptSelection> {
     List<String> userAcademicData = [
       userRegisteration[0].titleOverride!,
       userRegisteration[1].titleOverride!,
+      userRegisteration[2].titleOverride!,
     ];
 
     CacheHelper.getInstance().setData(

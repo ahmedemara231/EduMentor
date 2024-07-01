@@ -5,7 +5,6 @@ import 'package:fcis_guide/view/auth/login/login.dart';
 import 'package:fcis_guide/view/auth/sign_up/sign_up.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-
 import '../../constants/constants.dart';
 
 class FirstView extends StatelessWidget {
