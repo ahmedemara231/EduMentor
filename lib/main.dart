@@ -55,7 +55,7 @@ class MyApp extends StatelessWidget {
             )
           ),
           debugShowCheckedModeBanner: false,
-          home: UserYearDeptSelection(),
+          home: const Splash(),
           builder: EasyLoading.init(),
         ),
       ),
